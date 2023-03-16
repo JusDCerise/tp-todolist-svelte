@@ -1,8 +1,17 @@
 <script lang="ts">
     import { SvelteComponent } from "svelte";
-  import { element } from "svelte/internal";
-    
-
+    import { element } from "svelte/internal";
+    let newTask = '';
+    function task(e) {
+    let data={
+        id: Date.now(),
+        name: newTask,
+        statut: false
+    };
+    tasks.push(data);
+    tasks = tasks;
+    newTask = '';
+    }
   
     interface Task {
     id: number;
@@ -24,7 +33,6 @@
   ]
 
   $: tasksLeftCount = tasks.filter(task => task.statut == false );
-  console.log(tasksLeftCount);
   function Completion() {
     // let tasksChecked = tasks;
     // tasksChecked.forEach(element => {
@@ -33,17 +41,16 @@
     // tasks = tasksChecked;
     tasks = tasks.map(task => ({...task, statut:true}));
   };
- 
+  
 
   </script>
   
   <main>
     <h2>Nouvelle Tâche</h2>
-    <form action="">
-        <input type="text" name="" id="">
-        <button type="submit" >Ajouter une tâche</button>
+    <form action="" on:submit|preventDefault={task}>
+      <input type="text" name="" id="text" required bind:value={newTask}>
+      <button type="submit" id="btn" on:click|once={task}>Ajouter une tâche</button>
     </form>
-    
     <ul>
       {#each tasks as task}
         <li>
