@@ -1,6 +1,9 @@
 <script lang="ts">
     import { SvelteComponent } from "svelte";
     import { element } from "svelte/internal";
+    import { name, id, statut, greeting } from './stores.js';
+
+
     let newTask = '';
     function task(e) {
     let data={
